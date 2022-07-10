@@ -15,12 +15,15 @@ class CreateSalariesTable extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('talent_id');
+            $table->integer('talent_id')->unsigned();
             $table->integer('manager_id');
             $table->string('work', 100);
             $table->dateTime('working_date');
             $table->integer('salary');
             $table->timestamps();
+
+            // 外部キー設定
+            $table->foreign('talent_id')->references('id')->on('talents');
         });
     }
 
