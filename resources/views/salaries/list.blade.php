@@ -43,7 +43,7 @@
             <select name="selectMonth">
               <option selected>7月</option>
               @for($i = 1; $i <= 12; $i++)
-              <option value="{{ $i }}">{{ $i }}. 月</option>
+              <option value="{{ $i }}">{{ $i }}月</option>
               @endfor
             </select>
             <input type="submit" value="検索">
