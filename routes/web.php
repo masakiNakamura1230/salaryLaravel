@@ -15,6 +15,8 @@ use App\Http\Controllers\SalaryController;
 */
 
 // 給与一覧画面のルート
+// GET送信で/salary/{userName}/salaryListにリクエストがきたら
+// SalaryControllerのindexメソッドを呼び出す
 Route::get('/salary/{userName}/salaryList', [SalaryController::class, 'index']);
 
 
