@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Salary extends Model
 {
-    use HasFactory;
+    // Modelを継承することで
+    // salariesテーブルと対応していると解釈される
 }
