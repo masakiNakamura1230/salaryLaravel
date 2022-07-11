@@ -9,4 +9,8 @@ class Talent extends Model
 {
     // テーブル名定義
     protected $table = 'talents';
+
+    public function salaries(){
+        return $this->hasMany('App\Models\Salary');
+    }
 }

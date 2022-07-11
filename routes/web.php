@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\TalentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use App\Http\Controllers\SalaryController;
 // 給与一覧画面のルート
 // GET送信で/salary/{userName}/salaryListにリクエストがきたら
 // SalaryControllerのindexメソッドを呼び出す
-Route::get('/salary/{id}/salaryList', [SalaryController::class, 'index']);
+Route::get('/salary/{id}/salaryList', [SalaryController::class, 'index'])->name('salaries.list');
 
 
+Route::get('salary/talent', [TalentController::class, 'index'])->name('talents.list');
