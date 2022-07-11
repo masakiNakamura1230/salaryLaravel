@@ -66,7 +66,7 @@
         <tbody>
           @foreach($salaries as $salary)
           <tr>
-            <td class="centerItem listTableData">{{ $salary->talent_id }}</td>
+            <td class="centerItem listTableData">{{ $talent->name }}</td>
             <td class="centerItem listTableData">{{ $salary->manager_id }}</td>
             <td class="centerItem listTableData">{{ $salary->work }}</td>
             <td class="centerItem listTableData">{{ $salary->working_date }}</td>
