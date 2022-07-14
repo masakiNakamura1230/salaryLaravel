@@ -13,7 +13,7 @@
     <div id="logOutWrap">
       <div id="logOutBox">
         <a id="logOut" href="login.php">ログアウト</a>
-        <a id="talentListBtn" href="talentList.php">タレント一覧</a>
+        <a id="talentListBtn" href="{{ route('talents.list') }}">タレント一覧</a>
       </div>
     </div>
 
@@ -66,8 +66,8 @@
         <tbody>
           @foreach($salaries as $salary)
           <tr>
-            <td class="centerItem listTableData">{{ $talent->name }}</td>
-            <td class="centerItem listTableData">{{ $salary->manager_id }}</td>
+            <td class="centerItem listTableData">{{ $salary->talentName }}</td>
+            <td class="centerItem listTableData">{{ $salary->managerName }}</td>
             <td class="centerItem listTableData">{{ $salary->work }}</td>
             <td class="centerItem listTableData">{{ $salary->working_date }}</td>
             <td class="centerItem listTableData">{{ $salary->updated_at }}</td>

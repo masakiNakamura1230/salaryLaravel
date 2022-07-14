@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class TalentController extends Controller
 {
-    public function index(){
+    public function show(){
 
         $talents = Talent::all();
 

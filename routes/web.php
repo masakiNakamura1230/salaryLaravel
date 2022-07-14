@@ -18,7 +18,12 @@ use App\Http\Controllers\TalentController;
 // 給与一覧画面のルート
 // GET送信で/salary/{userName}/salaryListにリクエストがきたら
 // SalaryControllerのindexメソッドを呼び出す
-Route::get('/salary/{id}/salaryList', [SalaryController::class, 'index'])->name('salaries.list');
+Route::get('/salary/{id}/salaryList', [SalaryController::class, 'show'])->name('salaries.list');
 
+// タレント一覧画面のルート
+Route::get('salary/talent', [TalentController::class, 'show'])->name('talents.list');
 
-Route::get('salary/talent', [TalentController::class, 'index'])->name('talents.list');
+// 給与登録のルート
+// Route::get('/salary/{id}/salaryCreate', [SalaryController::class, 'createForm'])->name('salaries.create');
+
+// Route::post('salary/{id}/salaryCreate', [SalaryController::class, 'create']);
