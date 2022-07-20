@@ -21,10 +21,11 @@
 
     <main>
       <div id="listHead">
-        <div class="listHeadItem">
-          <form action='' method='post'>
+        <div class="listHeadItem bbb">
+          <!-- <form action="{{ route('salaries.create') }}" method='post'>
             <input class="aaa bbb" type="submit" value="登録">
-          </form>
+          </form> -->
+          <a href="{{ route('salaries.create') }}" class="aaa">登録</a>
         </div>
         <p class="listHeadItem listHeadItemMonth">
           7月

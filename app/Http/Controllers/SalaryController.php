@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Salary;
 use App\Models\Talent;
+use App\Models\Manager;
+use App\Http\Requests\CreateSalary;
 use Illuminate\Http\Request;
 
 class SalaryController extends Controller
@@ -38,6 +40,9 @@ class SalaryController extends Controller
         // ->where('s.talent_id', '=', $talent->id)
         // ->get();
 
+        // タレント一覧で選択されたIDをセッションに格納
+        session()->put('talentId', $id);
+
         // 給与一覧取得
         $salaries = Salary::getSalarySelect($id);
         
@@ -50,13 +55,42 @@ class SalaryController extends Controller
         ]);
     }
 
-    // public function createForm(){
-    //     return view('salaries/create', [
+    public function createForm(){
 
-    //     ]);
-    // }
+        $talentId = session() ->get('talentId');
+
+        $talent = Talent::find($talentId);
+
+        $managers = Manager::all();
+
+        return view('salaries/create', [
+            'talent' => $talent,
+            'managers' => $managers,
+
+        ]);
+    }
     
-    // public function create(){
+    public function create(CreateSalary $request){
 
-    // }
+        $workingDateYear = $request->workingDateYear;
+        $workingDateMonth = str_pad($request->workingDateMonth, 2, '0', STR_PAD_LEFT);
+        $workingDateDay = str_pad($request->workingDateDay, 2, '0', STR_PAD_LEFT);
+
+        $workingDate = $workingDateYear. $workingDateMonth. $workingDateDay;
+
+        $salary = new Salary();
+
+        $salary->talent_id = $request->talent_id;
+        $salary->manager_id = $request->manager_id;
+        $salary->work = $request->work;
+        $salary->working_date = $workingDate;
+        $salary->salary = $request->salary;
+
+        $salary->save();
+
+        return redirect()->route('salaries.list', [
+            'id' => $salary->talent_id,
+        ]);
+
+    }
 }

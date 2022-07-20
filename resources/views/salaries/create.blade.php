@@ -11,7 +11,7 @@
     <div id="logOutWrap">
       <div id="logOutBox">
         <a id="logOut" href="login.php">ログアウト</a>
-        <a id="salaryListBack" href="salaryList.php">一覧画面</a>
+        <a id="salaryListBack" href="{{ route('salaries.list', ['id' => $talent->id]) }}">一覧画面</a>
       </div>
     </div>
 
@@ -19,83 +19,88 @@
 
     <main>
 
-      <!-- 給与登録フォーム -->
-      <form action="#" method="post">
+      @if($errors->any())
+      <div class="errorPanel">
+        @foreach($errors->all() as $message)
+          <span class="errorMsg">
+            {{ $message }}
+          </span>
+        @endforeach  
+      </div>
+        
+      @endif
 
+      <!-- 給与登録フォーム -->
+      <form action="{{ route('salaries.create') }}" method="post">
+        @csrf
         <!-- 氏名 -->
         <div class="playTextboxWrap">
           <label class="playLabelSelectTalentId" for="userId">氏名</label>
-          <select class="textInput" name="talentId">
-            <option value=""></option>
+          <select class="textInput" name="talent_id">
+            <option value="{{ $talent->id }}">{{ $talent->name }}</option>
           </select>
         </div>
 
         <!-- 担当者 -->
         <div class="playTextboxWrap">
           <label class="playLabelSelectManagerId" for="userId">担当者</label>
-          <select class="textInput" name="managerId">
-            <?php foreach($managers['managers'] as $manager): ?>
-              <?php if($manager['id'] == $_POST['managerUser']){ ?>
-                <option value="<?php echo $manager['id'] ?>" selected><?php echo $manager['name'] ?></option>
-              <?php } else if ($manager['id'] == $_POST['managerId']) { ?>
-                <option value="<?php echo $manager['id'] ?>" selected><?php echo $manager['name'] ?></option>
-              <?php } ?>
-              <option value="<?php echo $manager['id'] ?>" ><?php echo $manager['name'] ?></option>
-            <?php endforeach; ?>
+          <select class="textInput" name="manager_id">
+            @foreach($managers as $manager)
+              <option value="{{ $manager->id }}">{{ $manager->name }}</option>
+            @endforeach
           </select>
         </div>
 
         <!-- 仕事内容 -->
         <div class="playTextboxWrap">
-          <input id="work" class="textInput playTextboxWork" type="text" name="work" value="<?php echo !empty($_POST['work']) ? htmlspecialchars_decode($_POST['work'],ENT_NOQUOTES) : ''; ?>">
-          <label class="playLabelWork" for="work">仕事内容</label>            
-          <span class="errorMsg">
-            <?php echo !empty($errorMsg['work']) ? $errorMsg['work'] : ''; ?>
-          </span>
+          <input id="work" class="textInput playTextboxWork" type="text" name="work" value="{{ old('work') }}">
+          <label class="playLabelWork" for="work">仕事内容</label>
         </div>
 
         <!-- 稼働日 -->
         <div class="playTextboxWrap">
           <div id="selectItem">
             <select class="textInput" name="workingDateYear">
-              <option value="<?php echo date('Y') ?>" selected>
-                <?php echo date('Y') ?>
+              <option value="{{ date('Y') - 1 }}">
+                {{ date('Y') - 1 }}
+              </option>
+              <option value="{{ date('Y') }}" selected>
+                {{ date('Y') }}
               </option>
             </select>年
             <select class="textInput" name="workingDateMonth">
-              <?php for($i = 1; $i <= 12; $i++){ ?>
-                <?php if(date('n') == $i) { ?>
-                  <option value="<?php echo $i ?>" selected>
-                    <?php echo $i ?>
-                  </option>
-                <?php } ?>
-                <option value="<?php echo $i ?>">
-                  <?php echo $i ?>
+              @for($month = 1; $month <= 12; $month++)
+                @if($month == date('m'))
+                <option value="{{ $month }}" selected>
+                  {{ $month }}
                 </option>
-              <?php } ?>
+                @else
+                <option value="{{ $month }}">
+                  {{ $month }}
+                </option>
+                @endif
+              @endfor
             </select>月
             <select class="textInput" name="workingDateDay">
-              <?php for($i = 1; $i <= 31; $i++){ ?>
-                <?php if(date('j') == $i) { ?>
-                  <option value="<?php echo $i ?>" selected>
-                    <?php echo $i ?>
-                  </option>
-                <?php } ?>
-                <option value="<?php echo $i ?>">
-                  <?php echo $i ?>
+              @for($day=1; $day <= 31; $day++)
+                @if($day == date('d'))
+                <option value="{{ $day }}" selected>
+                  {{ $day }}
                 </option>
-              <?php } ?>
+                @else
+                <option value="{{ $day }}">
+                  {{ $day }}
+                </option>
+                @endif
+              @endfor
             </select>日
           </div>
         </div>
 
         <!-- 給与 -->
         <div class="playTextboxWrap">
-          <input id="salary" class="textInput playTextboxSalary" type="text" name="salary" value="<?php echo !empty($_POST['salary']) ? htmlspecialchars_decode($_POST['salary'],ENT_NOQUOTES) : ''; ?>">
-          <label class="playLabelSalary" for="salary">給与</label>            
-          <span class="errorMsg">
-            <?php echo !empty($errorMsg['salary']) ? $errorMsg['salary'] : '';?>
-          </span>
+          <input id="salary" class="textInput playTextboxSalary" type="text" name="salary" value="{{ old('salary') }}">
+          <label class="playLabelSalary" for="salary">給与</label>
         </div>
 
         <input class="btn" type="submit" value="確認">
