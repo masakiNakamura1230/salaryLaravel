@@ -31,4 +31,7 @@ Route::post('/salary/salaryCreate', [SalaryController::class, 'create']);
 // 給与編集のルート
 Route::get('/salary/salaryEdit',[SalaryController::class, 'editForm'])->name('salaries.edit');
 
-Route::post('/salary/salaryEdit/', [SalaryController::class, 'edit']);
+Route::post('/salary/salaryEdit', [SalaryController::class, 'edit']);
+
+// 給与削除のルート
+Route::post('/salary/delete', [SalaryController::class, ('delete')])->name('salaries.delete');

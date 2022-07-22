@@ -66,7 +66,8 @@
         </form>
       </td>
       <td class="salaryDelete">
-        <form action="" method="post" class="centerItem">
+        <form action="{{ route('salaries.delete') }}" method="post" class="centerItem">
+          @csrf
           <input type="hidden" name="id" value="{{ $salary->id }}">
           <input class="centerItem" type="submit" value="削除" onclick='return confirm("削除してよろしいですか？");' >
         </form>

@@ -61,7 +61,7 @@ class SalaryController extends Controller
      */
     public function createForm(){
 
-        $talentId = session() ->get('talentId');
+        $talentId = session()->get('talentId');
 
         $talent = Talent::find($talentId);
 
@@ -141,6 +141,20 @@ class SalaryController extends Controller
         return redirect()->route('salaries.list', [
             'id' => $salary->talent_id,
         ]);
+    }
 
+    public function delete(Request $request){
+
+        $salary = Salary::find($request->id);
+
+        $salary->delete();
+
+        $talent_id = session()->get('talentId');
+
+        return redirect()->route('salaries.list', [
+
+            'id' => $talent_id,
+
+        ]);
     }
 }

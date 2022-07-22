@@ -46,6 +46,7 @@ class Salary extends Model
         ->join('talents as t', 's.talent_id', '=', 't.id')
         ->join('managers as m', 's.manager_id', '=', 'm.id')
         ->where('s.talent_id', '=', $i)
+        ->orderBy('working_date')
         ->get();
     }
 }
