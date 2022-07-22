@@ -25,14 +25,15 @@ class CreateSalary extends FormRequest
     {
         return [
             'work' => 'required|max:20',
+            'workingDate' => 'required|date',
             'salary' => 'required|numeric',
-            // numeric
         ];
     }
 
     public function attributes(){
         return [
             'work' => '仕事内容',
+            'workingDate' => '稼働日',
             'salary' => '給与',
         ];
     }

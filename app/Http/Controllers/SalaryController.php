@@ -79,18 +79,18 @@ class SalaryController extends Controller
      */
     public function create(CreateSalary $request){
 
-        $workingDateYear = $request->workingDateYear;
-        $workingDateMonth = str_pad($request->workingDateMonth, 2, '0', STR_PAD_LEFT);
-        $workingDateDay = str_pad($request->workingDateDay, 2, '0', STR_PAD_LEFT);
+        // $workingDateYear = $request->workingDateYear;
+        // $workingDateMonth = str_pad($request->workingDateMonth, 2, '0', STR_PAD_LEFT);
+        // $workingDateDay = str_pad($request->workingDateDay, 2, '0', STR_PAD_LEFT);
 
-        $workingDate = $workingDateYear. $workingDateMonth. $workingDateDay;
+        // $workingDate = $workingDateYear. $workingDateMonth. $workingDateDay;
 
         $salary = new Salary();
 
         $salary->talent_id = $request->talent_id;
         $salary->manager_id = $request->manager_id;
         $salary->work = $request->work;
-        $salary->working_date = $workingDate;
+        $salary->working_date = $request->workingDate;
         $salary->salary = $request->salary;
 
         $salary->save();
@@ -123,18 +123,18 @@ class SalaryController extends Controller
      */
     public function edit(EditSalary $request){
         
-        $workingDateYear = $request->workingDateYear;
-        $workingDateMonth = str_pad($request->workingDateMonth, 2, '0', STR_PAD_LEFT);
-        $workingDateDay = str_pad($request->workingDateDay, 2, '0', STR_PAD_LEFT);
+        // $workingDateYear = $request->workingDateYear;
+        // $workingDateMonth = str_pad($request->workingDateMonth, 2, '0', STR_PAD_LEFT);
+        // $workingDateDay = str_pad($request->workingDateDay, 2, '0', STR_PAD_LEFT);
 
-        $workingDate = $workingDateYear. $workingDateMonth. $workingDateDay;
+        // $workingDate = $workingDateYear. $workingDateMonth. $workingDateDay;
 
         $salary = Salary::find($request->id);
         
         $salary->talent_id = $request->talent_id;
         $salary->manager_id = $request->manager_id;
         $salary->work = $request->work;
-        $salary->working_date = $workingDate;
+        $salary->working_date = $request->workingDate;
         $salary->salary = $request->salary;
         $salary->save();
 

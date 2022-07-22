@@ -169,6 +169,7 @@ td {
 .playLabelUserName,
 .playLabelQuestion,
 .playLabelWork,
+.playLabelWorkingDate,
 .playLabelSalary,
 .playLabelPasswordRe {
   position: absolute;
@@ -184,6 +185,7 @@ td {
 .playLabelUserName.focus,
 .playLabelQuestion.focus,
 .playLabelWork.focus,
+.playLabelWorkingDate.focus,
 .playLabelSalary.focus,
 .playLabelPasswordRe.focus {
     top: -25px;
@@ -197,6 +199,7 @@ td {
 .playTextboxUserName,
 .playTextboxQuestion,
 .playTextboxWork,
+.playTextboxWorkingDate,
 .playTextboxSalary,
 .playTextboxPasswordRe {
   position: relative;
