@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-  <h1 class="pageTitle" data-en="SalaryRegist"><span>給与登録</span></h1>
+  <h1 class="pageTitle" data-en="SalaryRegist"><span>給与編集</span></h1>
 @endsection
 
 @section('content')
@@ -21,8 +21,11 @@
   @endif
 
   <!-- 給与登録フォーム -->
-  <form action="{{ route('salaries.create') }}" method="post">
+  <form action="{{ route('salaries.edit') }}" method="post">
     @csrf
+
+    <input type="hidden" name="id" value="{{ $salary->id }}">
+
     <!-- 氏名 -->
     <div class="playTextboxWrap">
       <label class="playLabelSelectTalentId" for="userId">氏名</label>
@@ -36,14 +39,18 @@
       <label class="playLabelSelectManagerId" for="userId">担当者</label>
       <select class="textInput" name="manager_id">
         @foreach($managers as $manager)
-          <option value="{{ $manager->id }}">{{ $manager->name }}</option>
+          @if($salary->manager_id == $manager->id)
+            <option value="{{ $manager->id }}" selected>{{ $manager->name }}</option>
+          @else
+            <option value="{{ $manager->id }}">{{ $manager->name }}</option>
+          @endif
         @endforeach
       </select>
     </div>
 
     <!-- 仕事内容 -->
     <div class="playTextboxWrap">
-      <input id="work" class="textInput playTextboxWork" type="text" name="work" value="{{ old('work') }}">
+      <input id="work" class="textInput playTextboxWork" type="text" name="work" value="{{ old('work') ?? $salary->work }}">
       <label class="playLabelWork" for="work">仕事内容</label>
     </div>
 
@@ -89,11 +96,11 @@
 
     <!-- 給与 -->
     <div class="playTextboxWrap">
-      <input id="salary" class="textInput playTextboxSalary" type="text" name="salary" value="{{ old('salary') }}">
+      <input id="salary" class="textInput playTextboxSalary" type="text" name="salary" value="{{ old('salary') ?? $salary->salary }}">
       <label class="playLabelSalary" for="salary">給与</label>
     </div>
 
-    <input class="btn" type="submit" value="登録">
+    <input class="btn" type="submit" value="変更">
   </form>
 @endsection
 

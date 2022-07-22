@@ -11,9 +11,6 @@
 @section('content')
 <div id="listHead">
   <div class="listHeadItem bbb">
-    <!-- <form action="{{ route('salaries.create') }}" method='post'>
-      <input class="aaa bbb" type="submit" value="登録">
-    </form> -->
     <a href="{{ route('salaries.create') }}" class="aaa">登録</a>
   </div>
   <p class="listHeadItem listHeadItemMonth">
@@ -63,13 +60,8 @@
       <td class="centerItem listTableData">{{ $salary->updated_at }}</td>
       <td class="rightItem listTableData">{{ $salary->salary }}</td>
       <td class="salaryChange">
-        <form action="" method="post" class="centerItem">
+        <form action="{{ route('salaries.edit') }}" method="get" class="centerItem">
           <input type="hidden" name="id" value="{{ $salary->id }}">
-          <input type="hidden" name="talentId" value = "{{ $salary->talent_id }}">
-          <input type="hidden" name="managerId" value = "{{ $salary->manager_id }}">
-          <input type="hidden" name="work" value = "{{ $salary->work }}">
-          <input type="hidden" name="workingDateYear" value = "{{ $salary->working_date }}">
-          <input type="hidden" name="salary" value = "{{ $salary->salary }}">
           <input class="centerItem" type="submit" value="変更">
         </form>
       </td>

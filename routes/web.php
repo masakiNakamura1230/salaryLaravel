@@ -26,4 +26,9 @@ Route::get('salary/talent', [TalentController::class, 'show'])->name('talents.li
 // 給与登録のルート
 Route::get('/salary/salaryCreate', [SalaryController::class, 'createForm'])->name('salaries.create');
 
-Route::post('salary/salaryCreate', [SalaryController::class, 'create']);
+Route::post('/salary/salaryCreate', [SalaryController::class, 'create']);
+
+// 給与編集のルート
+Route::get('/salary/salaryEdit',[SalaryController::class, 'editForm'])->name('salaries.edit');
+
+Route::post('/salary/salaryEdit/', [SalaryController::class, 'edit']);
