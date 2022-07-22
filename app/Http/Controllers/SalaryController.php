@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Salary;
 use App\Models\Talent;
+use App\Models\Manager;
+use App\Http\Requests\CreateSalary;
+use App\Http\Requests\EditSalary;
 use Illuminate\Http\Request;
 
 class SalaryController extends Controller
@@ -38,6 +41,9 @@ class SalaryController extends Controller
         // ->where('s.talent_id', '=', $talent->id)
         // ->get();
 
+        // タレント一覧で選択されたIDをセッションに格納
+        session()->put('talentId', $id);
+
         // 給与一覧取得
         $salaries = Salary::getSalarySelect($id);
         
@@ -50,13 +56,91 @@ class SalaryController extends Controller
         ]);
     }
 
-    // public function createForm(){
-    //     return view('salaries/create', [
+    /**
+     * 給与登録フォーム
+     */
+    public function createForm(){
 
-    //     ]);
-    // }
+        $talentId = session() ->get('talentId');
+
+        $talent = Talent::find($talentId);
+
+        $managers = Manager::all();
+
+        return view('salaries/create', [
+            'talent' => $talent,
+            'managers' => $managers,
+
+        ]);
+    }
     
-    // public function create(){
+    /**
+     * 給与登録
+     */
+    public function create(CreateSalary $request){
 
-    // }
+        $workingDateYear = $request->workingDateYear;
+        $workingDateMonth = str_pad($request->workingDateMonth, 2, '0', STR_PAD_LEFT);
+        $workingDateDay = str_pad($request->workingDateDay, 2, '0', STR_PAD_LEFT);
+
+        $workingDate = $workingDateYear. $workingDateMonth. $workingDateDay;
+
+        $salary = new Salary();
+
+        $salary->talent_id = $request->talent_id;
+        $salary->manager_id = $request->manager_id;
+        $salary->work = $request->work;
+        $salary->working_date = $workingDate;
+        $salary->salary = $request->salary;
+
+        $salary->save();
+
+        return redirect()->route('salaries.list', [
+            'id' => $salary->talent_id,
+        ]);
+    }
+
+    /**
+     * 給与編集フォーム
+     */
+    public function editForm(Request $request){
+
+        $salary = Salary::find($request->id);
+        $managers = Manager::all();
+        $talent = Talent::find($salary->talent_id);
+
+        return view('salaries.edit',[
+            
+            'salary' => $salary,
+            'talent' => $talent,
+            'managers' => $managers,
+
+        ]);
+    }
+
+    /**
+     * 給与編集
+     */
+    public function edit(EditSalary $request){
+        
+        $workingDateYear = $request->workingDateYear;
+        $workingDateMonth = str_pad($request->workingDateMonth, 2, '0', STR_PAD_LEFT);
+        $workingDateDay = str_pad($request->workingDateDay, 2, '0', STR_PAD_LEFT);
+
+        $workingDate = $workingDateYear. $workingDateMonth. $workingDateDay;
+
+        $salary = Salary::find($request->id);
+        
+        $salary->talent_id = $request->talent_id;
+        $salary->manager_id = $request->manager_id;
+        $salary->work = $request->work;
+        $salary->working_date = $workingDate;
+        $salary->salary = $request->salary;
+        $salary->save();
+
+        return redirect()->route('salaries.list', [
+            'id' => $salary->talent_id,
+        ]);
+
+    }
 }
