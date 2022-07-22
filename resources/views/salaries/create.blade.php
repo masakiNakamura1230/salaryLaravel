@@ -1,5 +1,10 @@
 @extends('layout')
 
+@section('styles')
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+@endsection
+
 @section('logout')
   <a id="salaryListBack" href="{{ route('salaries.list', ['id' => $talent->id]) }}">一覧画面</a>
 @endsection
@@ -49,42 +54,8 @@
 
     <!-- 稼働日 -->
     <div class="playTextboxWrap">
-      <div id="selectItem">
-        <select class="textInput" name="workingDateYear">
-          <option value="{{ date('Y') - 1 }}">
-            {{ date('Y') - 1 }}
-          </option>
-          <option value="{{ date('Y') }}" selected>
-            {{ date('Y') }}
-          </option>
-        </select>年
-        <select class="textInput" name="workingDateMonth">
-          @for($month = 1; $month <= 12; $month++)
-            @if($month == date('m'))
-            <option value="{{ $month }}" selected>
-              {{ $month }}
-            </option>
-            @else
-            <option value="{{ $month }}">
-              {{ $month }}
-            </option>
-            @endif
-          @endfor
-        </select>月
-        <select class="textInput" name="workingDateDay">
-          @for($day=1; $day <= 31; $day++)
-            @if($day == date('d'))
-            <option value="{{ $day }}" selected>
-              {{ $day }}
-            </option>
-            @else
-            <option value="{{ $day }}">
-              {{ $day }}
-            </option>
-            @endif
-          @endfor
-        </select>日
-      </div>
+      <input id="workingDate" class="textInput playTextboxWorkingDate" type="text" name="workingDate" value="{{ old('workingDate') }}">
+      <label class="playLabelWorkingDate" for="workingDate">稼働日</label>
     </div>
 
     <!-- 給与 -->
@@ -99,5 +70,14 @@
 
 @section('script')
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+  <script src="https://npmcdn.com/flatpickr/dist/l10n/ja.js"></script>
   <script src="/js/main.js"></script>
+  <script>
+    flatpickr(document.getElementById('workingDate'), {
+      locale: 'ja',
+      dateFormat: "Y/m/d",
+      maxDate: new Date()
+    });
+  </script>
 @endsection

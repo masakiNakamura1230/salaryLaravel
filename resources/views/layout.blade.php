@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>給与管理システム</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    @yield('styles')
   </head>
   <body>
     

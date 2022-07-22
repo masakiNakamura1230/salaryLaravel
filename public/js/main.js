@@ -117,6 +117,25 @@ $(document).ready(function(){
   });
 });
 
+// 稼働日
+$(document).ready(function(){
+
+  if($('.playTextboxWorkingDate').val().length === 0){
+    $('.playLabelWorkingDate').removeClass("focus");
+  } else { 
+    $('.playLabelWorkingDate').addClass("focus")
+  }
+
+  $('.playTextboxWorkingDate').blur(function() {
+    if($(this).val().length === 0){
+      $('.playLabelWorkingDate').removeClass("focus");
+    } else { return; }
+  })
+  .focus(function() {
+    $('.playLabelWorkingDate').addClass("focus")
+  });
+});
+
 // 給与
 $(document).ready(function(){
 
